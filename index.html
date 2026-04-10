@@ -351,6 +351,46 @@
   </div>
 </div>
 
+<!-- ═══════════ COLD OPEN — THE PREMISE ═══════════ -->
+<div class="slide" data-col="-1" data-row="1" data-section="premise">
+  <div class="slide-tag" style="color:var(--celonis-green);">// the premise</div>
+  <h2 style="font-size:clamp(1.6rem, 3.6vw, 2.6rem); line-height:1.15; max-width:920px;">
+    Some of this deck is already out of date.<br>
+    <span style="color:var(--celonis-green);">That's the point.</span>
+  </h2>
+
+  <p style="margin-top:18px; font-size:0.95rem; color:var(--text); max-width:820px; line-height:1.7;">
+    Six months ago, half the tricks in here were essential. Today, a capable coding agent &mdash; Claude Code, Cursor, Cline &mdash; does a lot of them natively. Six months from now, more of this deck will have rotted. The churn isn't a caveat. It's the subject.
+  </p>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="tip-card">
+      <h3 style="color:var(--celonis-green);">Upstream of the agent</h3>
+      <p style="font-size:0.82rem;color:var(--text);margin-top:4px;">Practices that feed high-quality input <em>into</em> a capable agent. These survive the churn because the agent is useless without them.</p>
+      <ul style="margin-top:8px;">
+        <li>Context engineering</li>
+        <li>Extracting structure from the unstructured (HTML, PDFs)</li>
+        <li>RAG metaprompting for vague sources</li>
+        <li>YAML &amp; JSON as editable artifacts</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h3 style="color:var(--purple);">Sideways of the agent</h3>
+      <p style="font-size:0.82rem;color:var(--text);margin-top:4px;">The work the agent <em>can't</em> do for you yet &mdash; and the second-order uses nobody documents.</p>
+      <ul style="margin-top:8px;">
+        <li>Problem definition &amp; judgment calls</li>
+        <li>CoPilot as a feedback stream, not an interface</li>
+        <li>Security posture against prompt injection</li>
+        <li>Orchestrating across non-code surfaces</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-block" style="margin-top:14px;">
+    Everything that follows is either <strong style="color:var(--celonis-green);">upstream</strong> or <strong style="color:var(--purple);">sideways</strong>. The agent is the thing in the middle &mdash; and the thing that rots fastest.
+  </div>
+</div>
+
 <!-- ═══════════ HUB ═══════════ -->
 <div class="slide" data-col="0" data-row="0" data-section="hub">
   <div style="text-align:center;margin-bottom:4px;">
@@ -904,23 +944,13 @@
         <li>Paste into LLM: "Add a step that does X between 3 and 4"</li>
         <li>Re-import. Done. No visual builder.</li>
       </ul>
-      <h3 style="color:var(--purple);margin-top:12px;">YAML KPI Cataloguing</h3>
+    </div>
+    <div class="tip-card">
+      <h3 style="color:var(--purple);">YAML KPI Cataloguing</h3>
       <ul>
         <li>Store KPI definitions in YAML: name, formula, filters, owner</li>
         <li>LLM &rarr; generate docs, validate consistency, spot duplicates</li>
         <li>Your KPI catalogue becomes a <strong>semantic asset</strong></li>
-      </ul>
-    </div>
-    <div class="tip-card">
-      <h3 style="color:var(--orange);">Mistral OCR 3 &mdash; Unlocking Unstructured Data</h3>
-      <div class="flow-step" style="margin-top:6px;"><div class="flow-icon" style="background:var(--orange);">1</div>Scanned PDF / image</div>
-      <div class="flow-arrow">&darr;</div>
-      <div class="flow-step"><div class="flow-icon" style="background:var(--orange);">2</div>Mistral OCR &rarr; clean markdown</div>
-      <div class="flow-arrow">&darr;</div>
-      <div class="flow-step"><div class="flow-icon" style="background:var(--orange);">3</div>LLM analysis / extraction</div>
-      <ul style="margin-top:8px;">
-        <li>88.9% handwriting accuracy (vs Azure 78.2%)</li>
-        <li><strong style="color:var(--celonis-green);">$2 per 1,000 pages</strong></li>
       </ul>
     </div>
   </div>
@@ -1315,14 +1345,21 @@
 
   // ── NAVIGATION HELPERS ──
   function navRight() {
-    if (pos.col === -1) { goTo(0, 0); return; }
+    if (pos.col === -1) {
+      if (pos.row === 0) goTo(-1, 1);
+      else goTo(0, 0);
+      return;
+    }
     let next = pos.col + 1;
     while (next <= 9 && !grid[next]) next++;
     if (next <= 9) goTo(next, 0);
   }
 
   function navLeft() {
-    if (pos.col === -1) return;
+    if (pos.col === -1) {
+      if (pos.row === 1) goTo(-1, 0);
+      return;
+    }
     let prev = pos.col - 1;
     while (prev >= -1 && !grid[prev]) prev--;
     if (prev >= -1) goTo(prev, prev === -1 ? 0 : 0);
@@ -1363,7 +1400,7 @@
 
     // Position indicator
     const posEl = document.getElementById('pos-indicator');
-    if (pos.col === -1) posEl.textContent = 'Title';
+    if (pos.col === -1) posEl.textContent = pos.row === 0 ? 'Title' : 'Premise';
     else if (pos.col === 0) posEl.textContent = 'HUB';
     else if (pos.col === 9) posEl.textContent = 'Fin';
     else {
@@ -1399,10 +1436,21 @@
     // Hub shortcut
     if (e.key === 'h' || e.key === 'H') { goTo(0, 0); return; }
 
-    // Title slide — any nav goes to hub
+    // Title / Premise column
     if (pos.col === -1) {
-      if (['ArrowRight','ArrowLeft','ArrowDown','ArrowUp',' ','Enter'].includes(e.key)) {
-        e.preventDefault(); goTo(0, 0); return;
+      if (pos.row === 0) {
+        // Title — any nav advances to the premise
+        if (['ArrowRight','ArrowLeft','ArrowDown','ArrowUp',' ','Enter'].includes(e.key)) {
+          e.preventDefault(); goTo(-1, 1); return;
+        }
+      } else {
+        // Premise — back to title on up/left, onward to hub on right/down/space/enter
+        if (['ArrowUp','ArrowLeft'].includes(e.key)) {
+          e.preventDefault(); goTo(-1, 0); return;
+        }
+        if (['ArrowRight','ArrowDown',' ','Enter'].includes(e.key)) {
+          e.preventDefault(); goTo(0, 0); return;
+        }
       }
     }
 
