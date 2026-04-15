@@ -758,7 +758,7 @@
   </div>
 
   <div class="warn-box reveal-step" style="margin-top:12px;background:rgba(170,170,170,0.06);border-color:rgba(170,170,170,0.2);">
-    <p><strong style="color:var(--purple);">One paragraph:</strong> as tokens accumulate, a model's ability to recall from them <em>degrades</em> &mdash; gracefully for some, cliff-like for others, but universally. Context is a finite resource with diminishing marginal returns. Every new token depletes the model's "attention budget." The discipline is to curate ruthlessly.</p>
+    <p><strong style="color:var(--purple);">Context Rot:</strong> as tokens accumulate, a model's ability to recall from them <em>degrades</em> &mdash; gracefully for some, cliff-like for others, but universally. Context is a finite resource with diminishing marginal returns. Every new token depletes the model's "attention budget." The discipline is to curate ruthlessly.</p>
   </div>
 </div>
 
@@ -766,7 +766,7 @@
 <div class="slide" data-section="longhorizon">
   <div class="slide-tag" style="color:var(--blue);">// Context engineering for long-horizon tasks</div>
   <h2>When the work outlasts the window</h2>
-  <p style="margin-top:6px;font-size:0.85rem;color:var(--text);max-width:940px;">End-to-end data exploration, knowledge-model &amp; KPI design, business-requirement validation, cross-domain PQL refactors &mdash; the token count quickly exceeds any context window. Three techniques work around it.</p>
+  <p style="margin-top:6px;font-size:0.85rem;color:var(--text);max-width:940px;">End-to-end data exploration, knowledge-model &amp; KPI design, business-requirement validation &mdash; the token count quickly exceeds any context window. Three techniques work around it.</p>
 
   <div class="three-col" style="margin-top:12px;">
     <div class="tip-card reveal-step">
@@ -796,12 +796,12 @@
         <img src="gif_images/note_taking.webp" alt="note taking" style="max-width:100%;max-height:120px;border-radius:6px;border:1px solid var(--border);" />
       </div>
       <p style="font-size:0.78rem;margin-top:6px;">You decide what the agent writes to disk: <code>NOTES.md</code>, a session plan, a running to-do, a knowledge file. It pulls those back on the next turn or the next day &mdash; progress survives context resets across multi-week engagements.</p>
-      <div style="margin-top:8px;padding:8px 10px;background:rgba(88,166,255,0.1);border-radius:6px;font-size:0.75rem;color:var(--blue);"><strong>This is <em>your</em> lever.</strong> Everything else is automated. Note-taking is where a good engineer compounds value.</div>
+      <div style="margin-top:8px;padding:8px 10px;background:rgba(88,166,255,0.1);border-radius:6px;font-size:0.75rem;color:var(--blue);"><strong>This is <em>your</em> lever.</strong> Everything else is automated. Note-taking is where a good consultant compounds value.</div>
     </div>
   </div>
 
   <div class="info-box reveal-step" style="margin-top:12px;">
-    <p><strong style="color:var(--celonis-green);">The punchline:</strong> compaction and sub-agents are handled <em>for you</em>. Your lever is <strong>structured note-taking</strong> &mdash; deciding what the agent remembers between sessions, where to pick up, where to go next. That's where a good engineer adds value.</p>
+    <p><strong style="color:var(--celonis-green);">The punchline:</strong> compaction and sub-agents are handled <em>for you</em>. Your lever is <strong>structured note-taking</strong> &mdash; deciding what the agent remembers between sessions, where to pick up, where to go next. That's where a good consultant adds value.</p>
   </div>
 
   <div class="quote-block reveal-step" style="margin-top:10px;">
@@ -887,9 +887,8 @@
       Models will keep getting cheaper and smarter without you.<br>
       Context won't. <strong style="color:var(--celonis-green);">That's the job.</strong>
     </p>
-    <div class="reveal-step" style="max-width:560px;margin-top:8px;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;text-align:center;">
-      <p style="font-size:0.88rem;color:var(--text);line-height:1.6;">Before next session &mdash; pick <strong style="color:var(--celonis-green);">one</strong> of the five practices. Apply it to real client work this week.<br>
-      <span style="color:var(--muted);font-size:0.8rem;">Next in the series: AI Harnesses.</span></p>
+    <div class="reveal-step" style="max-width:560px;margin-top:8px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;text-align:center;">
+      <p style="font-size:0.8rem;color:var(--muted);">Next in the series: <strong style="color:var(--celonis-green);">AI Harnesses</strong>.</p>
     </div>
     <div style="display:flex;gap:10px;margin-top:20px;">
       <button style="padding:10px 20px;border-radius:10px;border:1px solid #444;background:transparent;color:#fff;font-size:0.85rem;cursor:pointer;font-family:inherit;" onclick="goTo(0, true)">Start Over</button>
